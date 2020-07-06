@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dew667.github.io/"/>
-  <updated>2020-07-06T16:04:02.165Z</updated>
+  <updated>2020-07-06T16:44:28.776Z</updated>
   <id>https://dew667.github.io/</id>
   
   <author>
@@ -17,11 +17,32 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>HashMap、Hashtable、HashSet比较</title>
+    <link href="https://dew667.github.io/2020/07/07/HashMap%E3%80%81Hashtable%E3%80%81HashSet%E6%AF%94%E8%BE%83/"/>
+    <id>https://dew667.github.io/2020/07/07/HashMap%E3%80%81Hashtable%E3%80%81HashSet%E6%AF%94%E8%BE%83/</id>
+    <published>2020-07-06T16:44:28.000Z</published>
+    <updated>2020-07-06T16:44:28.776Z</updated>
+    
+    <content type="html"><![CDATA[<h3 id="HashMap-Hashtable-HashSet继承实现关系"><a href="#HashMap-Hashtable-HashSet继承实现关系" class="headerlink" title="HashMap Hashtable HashSet继承实现关系"></a>HashMap Hashtable HashSet继承实现关系</h3><p>下面是三者的继承实现关系示意图</p><a id="more"></a><p><img src="https://s1.ax1x.com/2020/07/07/UFZ5Fg.jpg" alt="pic1"></p><h3 id="HashMap-和HashTable-的区别"><a href="#HashMap-和HashTable-的区别" class="headerlink" title="HashMap 和HashTable 的区别."></a>HashMap 和HashTable 的区别.</h3><ul><li>线程安全: HashMap不是线程安全的，HashTable 是线程安全的。HashTable 中方法都有synchronized 修饰。如果要用线程安全的集合，可以考虑ConcurrentHashMap。</li><li>效率：因为线程安全的原因，HashTable 的效率要低于HashMap。</li><li>是否支持Null Key 和Null Value：HashMap支持为Null 的Key，但一个HashMap集合只能包含一个，同时HashMap支持使用多个值为Null的Value。HashTable则不行，若put进入Null则会报错：NullPointerException.</li><li>底层数据结构：1.8版本开始，HashMap底层数据结构为数组承载的链表或者红黑树，当链表长度大于阈值时，链表会转换为红黑树。HashTable中没有这样的机制。</li><li>初始容量和扩容：HashTable若不指定初始容量，则默认初始容量为11，以后每次扩容，都变为2n+1. HashMap若不指定初始容量，则默认容量为16，每次扩容都为原来两倍。HashTable 若指定初始容量，则初始容量为指定值。HashMap 若指定初始值，则初始容量为2的幂次。  </li></ul><h3 id="HashMap-和HashSet-的区别"><a href="#HashMap-和HashSet-的区别" class="headerlink" title="HashMap 和HashSet 的区别"></a>HashMap 和HashSet 的区别</h3><p>HashSet底层都是通过HashMap实现的。  </p><table><thead><tr><th align="center"><strong>HashMap</strong></th><th align="center"><strong>HashSet</strong></th></tr></thead><tbody><tr><td align="center">实现了Map接口</td><td align="center">实现了Set接口</td></tr><tr><td align="center">存储键值对</td><td align="center">存储对象元素</td></tr><tr><td align="center">put添加键值对</td><td align="center">add添加元素</td></tr><tr><td align="center">HashMap使用Key计算hashcode</td><td align="center">HashSet使用成员对象来计算hashcode</td></tr></tbody></table>]]></content>
+    
+    <summary type="html">
+    
+      &lt;h3 id=&quot;HashMap-Hashtable-HashSet继承实现关系&quot;&gt;&lt;a href=&quot;#HashMap-Hashtable-HashSet继承实现关系&quot; class=&quot;headerlink&quot; title=&quot;HashMap Hashtable HashSet继承实现关系&quot;&gt;&lt;/a&gt;HashMap Hashtable HashSet继承实现关系&lt;/h3&gt;&lt;p&gt;下面是三者的继承实现关系示意图&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="Java" scheme="https://dew667.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
     <title>说一说ArrayList的扩容机制</title>
     <link href="https://dew667.github.io/2020/07/07/%E8%AF%B4%E4%B8%80%E8%AF%B4ArrayList%E7%9A%84%E6%89%A9%E5%AE%B9%E6%9C%BA%E5%88%B6/"/>
     <id>https://dew667.github.io/2020/07/07/%E8%AF%B4%E4%B8%80%E8%AF%B4ArrayList%E7%9A%84%E6%89%A9%E5%AE%B9%E6%9C%BA%E5%88%B6/</id>
     <published>2020-07-06T16:04:02.000Z</published>
-    <updated>2020-07-06T16:04:02.165Z</updated>
+    <updated>2020-07-06T16:05:21.158Z</updated>
     
     <content type="html"><![CDATA[<p><a href="https://github.com/Snailclimb/JavaGuide/blob/master/docs/java/collection/ArrayList-Grow.md" target="_blank" rel="noopener">ArrayList 扩容机制源码分析</a>  </p><ul><li><p>通过ArrayList构造方法初始化时，可以带初始容量，则为ArrayList列表设置指定初始容量。</p></li><li><p>如果通过ArrayList构造方法初始化，不带初始容量参数，则ArrayList列表中的数据初始化为空的Object[]数组，其长度为0，即DEFEAULTCAPACITY_ELEMENT_DATA。之后在第一次调用add()方法添加元素时才会初始化数组容量为默认大小10.</p><a id="more"></a></li><li><p>当调用add()方法添加元素时，首先会比较扩容大小和默认大小10，如果是第一次扩容，则会在grow()方法中扩展数组大小为10。一般情况下，每次扩容时，都会将数组大小扩展为原来的1.5倍。</p></li><li><p>扩容时，会用到System.arrycopy方法。这里会新建一个扩容后的数组，将原来数组中的数据拷贝过去，在将ArrayList中elementData数组引用指向新数组，这样就完成了扩容。</p></li><li><p>在我们用add()方法添加大量元素之前，可以调用ensureCapacity()方法来扩容，以减少容量重新分配的次数。</p></li></ul>]]></content>
     
