@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dew667.github.io/"/>
-  <updated>2020-07-06T16:44:28.776Z</updated>
+  <updated>2020-07-07T15:25:12.509Z</updated>
   <id>https://dew667.github.io/</id>
   
   <author>
@@ -17,11 +17,33 @@
   <generator uri="https://hexo.io/">Hexo</generator>
   
   <entry>
+    <title>HashMap的底层实现</title>
+    <link href="https://dew667.github.io/2020/07/07/HashMap%E7%9A%84%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/"/>
+    <id>https://dew667.github.io/2020/07/07/HashMap%E7%9A%84%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/</id>
+    <published>2020-07-07T15:25:12.000Z</published>
+    <updated>2020-07-07T15:25:12.509Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li><p>HashMap底层是数组加链表组合起来使用的。当向HashMap中put一个键值对时，会计算出key的hashCode，然后通过扰动函数对hashCode值进行处理，以达到尽可能散列的目的，从而得到当前元素在数组中存储的位置。如果在该位置遇到已经存在的元素，则判断hash值以及Key是否相同，如果相同则覆盖之，不相同则采用“拉链法”解决冲突。</p><a id="more"></a></li><li><p>所谓扰动函数是指对元素key的hashcode进行扰动处理，达到减少在数组中碰撞的目的。</p></li><li><p>所谓拉链法是指HashMap的数组为链表数组，每一个数组位置上都是一个链表，可以存放一系列hash值发生碰撞的元素。</p></li><li><p>在JDK1.8之后，底层数据结构采用的是链表数组加红黑树。当数组位置上的链表长度超过8时转换为红黑树，以减少查询时间。</p></li><li><p>下面是JDK1.8之后HashMap的数据结构示意图：<br><img src="https://s1.ax1x.com/2020/07/07/UESA5n.jpg" alt="pic1"></p></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;&lt;p&gt;HashMap底层是数组加链表组合起来使用的。当向HashMap中put一个键值对时，会计算出key的hashCode，然后通过扰动函数对hashCode值进行处理，以达到尽可能散列的目的，从而得到当前元素在数组中存储的位置。如果在该位置遇到已经存在的元素，则判断hash值以及Key是否相同，如果相同则覆盖之，不相同则采用“拉链法”解决冲突。&lt;/p&gt;
+    
+    </summary>
+    
+    
+    
+      <category term="Java" scheme="https://dew667.github.io/tags/Java/"/>
+    
+  </entry>
+  
+  <entry>
     <title>HashMap、Hashtable、HashSet比较</title>
     <link href="https://dew667.github.io/2020/07/07/HashMap%E3%80%81Hashtable%E3%80%81HashSet%E6%AF%94%E8%BE%83/"/>
     <id>https://dew667.github.io/2020/07/07/HashMap%E3%80%81Hashtable%E3%80%81HashSet%E6%AF%94%E8%BE%83/</id>
     <published>2020-07-06T16:44:28.000Z</published>
-    <updated>2020-07-06T16:44:28.776Z</updated>
+    <updated>2020-07-06T16:46:31.780Z</updated>
     
     <content type="html"><![CDATA[<h3 id="HashMap-Hashtable-HashSet继承实现关系"><a href="#HashMap-Hashtable-HashSet继承实现关系" class="headerlink" title="HashMap Hashtable HashSet继承实现关系"></a>HashMap Hashtable HashSet继承实现关系</h3><p>下面是三者的继承实现关系示意图</p><a id="more"></a><p><img src="https://s1.ax1x.com/2020/07/07/UFZ5Fg.jpg" alt="pic1"></p><h3 id="HashMap-和HashTable-的区别"><a href="#HashMap-和HashTable-的区别" class="headerlink" title="HashMap 和HashTable 的区别."></a>HashMap 和HashTable 的区别.</h3><ul><li>线程安全: HashMap不是线程安全的，HashTable 是线程安全的。HashTable 中方法都有synchronized 修饰。如果要用线程安全的集合，可以考虑ConcurrentHashMap。</li><li>效率：因为线程安全的原因，HashTable 的效率要低于HashMap。</li><li>是否支持Null Key 和Null Value：HashMap支持为Null 的Key，但一个HashMap集合只能包含一个，同时HashMap支持使用多个值为Null的Value。HashTable则不行，若put进入Null则会报错：NullPointerException.</li><li>底层数据结构：1.8版本开始，HashMap底层数据结构为数组承载的链表或者红黑树，当链表长度大于阈值时，链表会转换为红黑树。HashTable中没有这样的机制。</li><li>初始容量和扩容：HashTable若不指定初始容量，则默认初始容量为11，以后每次扩容，都变为2n+1. HashMap若不指定初始容量，则默认容量为16，每次扩容都为原来两倍。HashTable 若指定初始容量，则初始容量为指定值。HashMap 若指定初始值，则初始容量为2的幂次。  </li></ul><h3 id="HashMap-和HashSet-的区别"><a href="#HashMap-和HashSet-的区别" class="headerlink" title="HashMap 和HashSet 的区别"></a>HashMap 和HashSet 的区别</h3><p>HashSet底层都是通过HashMap实现的。  </p><table><thead><tr><th align="center"><strong>HashMap</strong></th><th align="center"><strong>HashSet</strong></th></tr></thead><tbody><tr><td align="center">实现了Map接口</td><td align="center">实现了Set接口</td></tr><tr><td align="center">存储键值对</td><td align="center">存储对象元素</td></tr><tr><td align="center">put添加键值对</td><td align="center">add添加元素</td></tr><tr><td align="center">HashMap使用Key计算hashcode</td><td align="center">HashSet使用成员对象来计算hashcode</td></tr></tbody></table>]]></content>
     

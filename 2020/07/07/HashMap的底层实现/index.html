@@ -1,0 +1,15 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> HashMap的底层实现 · ColorfulCat</title><meta name="description" content="HashMap的底层实现 - ColorfulCat"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://dew667.github.io/atom.xml" title="ColorfulCat"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="ColorfulCat" type="application/atom+xml">
+</head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="/about/" target="_self" class="nav-list-link">ABOUT</a></li><li class="nav-list-item"><a href="https://github.com/dew667" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/links/" target="_self" class="nav-list-link">LINKS</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">HashMap的底层实现</h1><div class="post-info">Jul 7, 2020</div><div class="post-content"><ul>
+<li><p>HashMap底层是数组加链表组合起来使用的。当向HashMap中put一个键值对时，会计算出key的hashCode，然后通过扰动函数对hashCode值进行处理，以达到尽可能散列的目的，从而得到当前元素在数组中存储的位置。如果在该位置遇到已经存在的元素，则判断hash值以及Key是否相同，如果相同则覆盖之，不相同则采用“拉链法”解决冲突。</p>
+<a id="more"></a>
+</li>
+<li><p>所谓扰动函数是指对元素key的hashcode进行扰动处理，达到减少在数组中碰撞的目的。</p>
+</li>
+<li><p>所谓拉链法是指HashMap的数组为链表数组，每一个数组位置上都是一个链表，可以存放一系列hash值发生碰撞的元素。</p>
+</li>
+<li><p>在JDK1.8之后，底层数据结构采用的是链表数组加红黑树。当数组位置上的链表长度超过8时转换为红黑树，以减少查询时间。</p>
+</li>
+<li><p>下面是JDK1.8之后HashMap的数据结构示意图：<br><img src="https://s1.ax1x.com/2020/07/07/UESA5n.jpg" alt="pic1"></p>
+</li>
+</ul>
+</div></article></div></main><footer><div class="paginator"><a href="/2020/07/07/HashMap%E3%80%81Hashtable%E3%80%81HashSet%E6%AF%94%E8%BE%83/" class="next">NEXT</a></div><div class="copyright"><p>© 2019 - 2020 <a href="https://dew667.github.io">ColorfulCat</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
