@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dew667.github.io/"/>
-  <updated>2020-07-07T15:25:39.471Z</updated>
+  <updated>2020-07-08T09:36:36.956Z</updated>
   <id>https://dew667.github.io/</id>
   
   <author>
@@ -15,6 +15,29 @@
   </author>
   
   <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>ConcurrentHashMap和HashTable的区别</title>
+    <link href="https://dew667.github.io/2020/07/08/ConcurrentHashMap%E5%92%8CHashTable%E7%9A%84%E5%8C%BA%E5%88%AB/"/>
+    <id>https://dew667.github.io/2020/07/08/ConcurrentHashMap%E5%92%8CHashTable%E7%9A%84%E5%8C%BA%E5%88%AB/</id>
+    <published>2020-07-08T09:36:36.000Z</published>
+    <updated>2020-07-08T09:36:36.956Z</updated>
+    
+    <content type="html"><![CDATA[<ul><li>ConcurrentHashMap和HashTable的区别<br>ConcurrentHashMap和Hashtable的主要区别在于实现线程安全性的方式不同。</li><li>底层数据结构：<br>JDK1.7的ConcurrentHashMap底层数据结构采用分段的数组+链表实现，JDK1.8的ConcurrentHashMap底层数据结构采用和HashMap一样的方式实现，即数组+链表/红黑树。Hashtable的底层数据结构则和JDK1.8之前的HashMap一样，采用数组+链表的方式。<a id="more"></a></li><li>实现线程安全性的方式不同：<br><strong>ConcurrentHashMap</strong>：<br>JDK1.7的ConcurrentHashMap底层采用了桶数组分段加锁的方式，在不同线程访问不同分段资源的时候，不存在锁竞争，这样加大了并发访问效率。到了JDK1.8，ConcurrentHashMap抛弃了这种方式，采用数组+链表/红黑树的数据结构，并发访问控制采用Synchronized和CAS来操作，相当于线程安全的HashMap。<br><strong>Hashtable</strong>：<br>Hashtable采用数组+链表的数据结构，并发控制采用synchronized关键字的方式，其并发访问效率较低。一个线程访问同步方法时，另一个线程无法访问该同步方法。</li><li>下面是两种集合线程安全性的示意图：<br><img src="https://s1.ax1x.com/2020/07/08/UVTWV0.jpg" alt="pic2"><br><img src="https://s1.ax1x.com/2020/07/08/UVT2bq.jpg" alt="pic3"><br><img src="https://s1.ax1x.com/2020/07/08/UVTfaV.jpg" alt="pic4"></li></ul>]]></content>
+    
+    <summary type="html">
+    
+      &lt;ul&gt;
+&lt;li&gt;ConcurrentHashMap和HashTable的区别&lt;br&gt;ConcurrentHashMap和Hashtable的主要区别在于实现线程安全性的方式不同。&lt;/li&gt;
+&lt;li&gt;底层数据结构：&lt;br&gt;JDK1.7的ConcurrentHashMap底层数据结构采用分段的数组+链表实现，JDK1.8的ConcurrentHashMap底层数据结构采用和HashMap一样的方式实现，即数组+链表/红黑树。Hashtable的底层数据结构则和JDK1.8之前的HashMap一样，采用数组+链表的方式。
+    
+    </summary>
+    
+    
+    
+      <category term="Java" scheme="https://dew667.github.io/tags/Java/"/>
+    
+  </entry>
   
   <entry>
     <title>HashMap的底层实现</title>
