@@ -6,7 +6,7 @@
   <link href="/atom.xml" rel="self"/>
   
   <link href="https://dew667.github.io/"/>
-  <updated>2020-07-07T15:25:12.509Z</updated>
+  <updated>2020-07-07T15:25:39.471Z</updated>
   <id>https://dew667.github.io/</id>
   
   <author>
@@ -21,7 +21,7 @@
     <link href="https://dew667.github.io/2020/07/07/HashMap%E7%9A%84%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/"/>
     <id>https://dew667.github.io/2020/07/07/HashMap%E7%9A%84%E5%BA%95%E5%B1%82%E5%AE%9E%E7%8E%B0/</id>
     <published>2020-07-07T15:25:12.000Z</published>
-    <updated>2020-07-07T15:25:12.509Z</updated>
+    <updated>2020-07-07T15:25:39.471Z</updated>
     
     <content type="html"><![CDATA[<ul><li><p>HashMap底层是数组加链表组合起来使用的。当向HashMap中put一个键值对时，会计算出key的hashCode，然后通过扰动函数对hashCode值进行处理，以达到尽可能散列的目的，从而得到当前元素在数组中存储的位置。如果在该位置遇到已经存在的元素，则判断hash值以及Key是否相同，如果相同则覆盖之，不相同则采用“拉链法”解决冲突。</p><a id="more"></a></li><li><p>所谓扰动函数是指对元素key的hashcode进行扰动处理，达到减少在数组中碰撞的目的。</p></li><li><p>所谓拉链法是指HashMap的数组为链表数组，每一个数组位置上都是一个链表，可以存放一系列hash值发生碰撞的元素。</p></li><li><p>在JDK1.8之后，底层数据结构采用的是链表数组加红黑树。当数组位置上的链表长度超过8时转换为红黑树，以减少查询时间。</p></li><li><p>下面是JDK1.8之后HashMap的数据结构示意图：<br><img src="https://s1.ax1x.com/2020/07/07/UESA5n.jpg" alt="pic1"></p></li></ul>]]></content>
     
