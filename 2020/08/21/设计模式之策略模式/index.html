@@ -1,0 +1,37 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><title> 设计模式之策略模式 · ColorfulCat</title><meta name="description" content="设计模式之策略模式 - ColorfulCat"><meta name="viewport" content="width=device-width, initial-scale=1"><link rel="icon" href="/favicon.png"><link rel="stylesheet" href="/css/apollo.css"><link rel="search" type="application/opensearchdescription+xml" href="https://dew667.github.io/atom.xml" title="ColorfulCat"><meta name="generator" content="Hexo 4.2.1"><link rel="alternate" href="/atom.xml" title="ColorfulCat" type="application/atom+xml">
+</head><body><div class="wrap"><header><a href="/" class="logo-link"><img src="/favicon.png" alt="logo"></a><ul class="nav nav-list"><li class="nav-list-item"><a href="/" target="_self" class="nav-list-link">BLOG</a></li><li class="nav-list-item"><a href="/archives/" target="_self" class="nav-list-link">ARCHIVE</a></li><li class="nav-list-item"><a href="/about/" target="_self" class="nav-list-link">ABOUT</a></li><li class="nav-list-item"><a href="https://github.com/dew667" target="_blank" class="nav-list-link">GITHUB</a></li><li class="nav-list-item"><a href="/links/" target="_self" class="nav-list-link">LINKS</a></li><li class="nav-list-item"><a href="/atom.xml" target="_self" class="nav-list-link">RSS</a></li></ul></header><main class="container"><div class="post"><article class="post-block"><h1 class="post-title">设计模式之策略模式</h1><div class="post-info">Aug 21, 2020</div><div class="post-content"><h3 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h3><p>在策略模式（Strategy Pattern）中，一个类的行为或其算法可以在运行时更改。</p>
+<p>策略模式定义了算法族，分别封装起来，让它们之间可以互相替换，此模式让算法的变化独立于使用算法的客户。</p>
+<h3 id="2-举例"><a href="#2-举例" class="headerlink" title="2.举例"></a>2.举例</h3><p>在Head First 设计模式中提供了鸭子游戏的例子。</p>
+<a id="more"></a>
+
+<p>为了让各种继承于Duck类的具体鸭子，如MallardDuck和RubberDuck有不同的飞行动作和鸣叫动作，将飞行动作和鸣叫动作<strong>抽取为独立的接口</strong>，然后编写具体动作类去实现它们。之后在Duck类中<strong>组合</strong>动作接口对象，这样就可以在具体实现的鸭子类中为这些组合的对象赋予应有的动作。这一例子中，FlyWithWings、FlyNoWay以及Quack、MuteQuack就是策略模式的算法族，将它们封装为了类，去实现相应的接口，然后在相应的上下文环境就可以面向接口编程，而不用关心具体的实现算法。</p>
+<p><img src="https://s1.ax1x.com/2020/08/23/d0Mbwj.png" alt="策略模式"></p>
+<h3 id="3-优缺点"><a href="#3-优缺点" class="headerlink" title="3.优缺点"></a>3.优缺点</h3><p>优点：</p>
+<ul>
+<li><p>算法可以自由切换 </p>
+</li>
+<li><p>改一下策略很方便</p>
+</li>
+<li><p>扩展性良好 </p>
+</li>
+<li><p>增加一个策略，就多增加一个类就好了。</p>
+</li>
+</ul>
+<p>缺点：</p>
+<ul>
+<li><p>策略类的数量增多 </p>
+</li>
+<li><p>每一个策略都是一个类，复用的可能性很小、类数量增多</p>
+</li>
+<li><p>所有的策略类都需要对外暴露 </p>
+</li>
+<li><p>上层模块必须知道有哪些策略，然后才能决定使用哪一个策略</p>
+</li>
+</ul>
+<h3 id="4-JDK中的策略模式应用"><a href="#4-JDK中的策略模式应用" class="headerlink" title="4.JDK中的策略模式应用"></a>4.JDK中的策略模式应用</h3><h2 id="应用"><a href="#应用" class="headerlink" title="应用"></a>应用</h2><p>不知道大家还能不能想起ThreadPoolExecutor(线程池)：<a href="https://mp.weixin.qq.com/s?__biz=MzI4Njg5MDA5NA==&mid=2247484214&idx=1&sn=9b5c977e0f8329b2bf4c29d230c678fb&chksm=ebd74237dca0cb212f4505935f9905858b9166beddd4603c3d3b5386b5dd8cf240c460a8e7c4#rd" target="_blank" rel="noopener">线程池你真不来了解一下吗？</a></p>
+<p>学习ThreadPoolExecutor(线程池)就肯定要知道它的构造方法每个参数的意义：</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * Handler called when saturated or shutdown in execute.</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="keyword">private</span> <span class="keyword">volatile</span> RejectedExecutionHandler handler;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="keyword">public</span> <span class="title">ThreadPoolExecutor</span><span class="params">(<span class="keyword">int</span> corePoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                             <span class="keyword">int</span> maximumPoolSize,</span></span></span><br><span class="line"><span class="function"><span class="params">                             <span class="keyword">long</span> keepAliveTime,</span></span></span><br><span class="line"><span class="function"><span class="params">                             TimeUnit unit,</span></span></span><br><span class="line"><span class="function"><span class="params">                             BlockingQueue&lt;Runnable&gt; workQueue,</span></span></span><br><span class="line"><span class="function"><span class="params">                             ThreadFactory threadFactory,</span></span></span><br><span class="line"><span class="function"><span class="params">                             RejectedExecutionHandler handler)</span> </span>&#123;</span><br><span class="line">       <span class="comment">//....</span></span><br><span class="line">       <span class="keyword">this</span>.handler = handler;</span><br><span class="line">   &#125;</span><br><span class="line"></span><br><span class="line">   <span class="comment">/**</span></span><br><span class="line"><span class="comment">    * Invokes the rejected execution handler for the given command.</span></span><br><span class="line"><span class="comment">    * Package-protected for use by ScheduledThreadPoolExecutor.</span></span><br><span class="line"><span class="comment">    */</span></span><br><span class="line">   <span class="function"><span class="keyword">final</span> <span class="keyword">void</span> <span class="title">reject</span><span class="params">(Runnable command)</span> </span>&#123;</span><br><span class="line">       handler.rejectedExecution(command, <span class="keyword">this</span>);</span><br><span class="line">   &#125;</span><br></pre></td></tr></table></figure>
+
+<p>其中我们可以找到RejectedExecutionHandler，这个参数代表的是拒绝策略(有四种具体的实现：直接抛出异常、使用调用者的线程来处理、直接丢掉这个任务、丢掉最老的任务)</p>
+<p>其实这就是策略模式的体现了。</p>
+</div></article></div></main><footer><div class="paginator"><a href="/2020/07/17/%E8%BF%9B%E7%A8%8B%E5%92%8C%E7%BA%BF%E7%A8%8B/" class="next">NEXT</a></div><div class="copyright"><p>© 2019 - 2020 <a href="https://dew667.github.io">ColorfulCat</a>, powered by <a href="https://hexo.io/" target="_blank">Hexo</a> and <a href="https://github.com/pinggod/hexo-theme-apollo" target="_blank">hexo-theme-apollo</a>.</p></div></footer></div><script async src="//cdn.bootcss.com/mathjax/2.7.0/MathJax.js?config=TeX-MML-AM_CHTML" integrity="sha384-crwIf/BuaWM9rM65iM+dWFldgQ1Un8jWZMuh3puxb8TOY9+linwLoI7ZHZT+aekW" crossorigin="anonymous"></script></body></html>
